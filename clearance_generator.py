@@ -62,4 +62,7 @@ clearance.append("squawk %s %s %s %s" % (random.randint(1,6),random.randint(0,9)
 # say clearance
 subprocess.call(["/usr/bin/say","-r",str(rate),". ".join(clearance)])
 
+print "\n".join(clearance)
+print "\n"
+
 
