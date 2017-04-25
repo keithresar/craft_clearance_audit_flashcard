@@ -2,6 +2,7 @@
 
 import re
 import random
+import subprocess
 
 datafile = 'holds.nav'
 
@@ -36,7 +37,7 @@ clearance = list()
 """
 
 # callsign
-clearance.append("Cessna seven three three tango papa")
+clearance.append("Cessna 7 3 3 tango papa")
 
 # route
 clearance.append("cleared to %s %s" % (random.choice(routes),
@@ -44,16 +45,23 @@ clearance.append("cleared to %s %s" % (random.choice(routes),
 
 # directional
 clearance.append("fly %s" % (random.choice([fly_rw_ref,fly_heading_ref,fly_heading_ref])()))
-#clearance.append("fly %s" % random.choice(
 
-# 
+# altitude
+initial_altitude = random.randint(3,8)
+cruise_altitude = random.randint(initial_altitude+1,14)
+clearance.append("climb and maintain %s thousand.  expect %s thousand %s minutes after departure" %
+                    (initial_altitude,cruise_altitude,
+                     random.choice(["5","1 0","1 5"])))
 
-#
-# generate random clearance
-#
+# frequency
+clearance.append("departure frequency %s point %s" %
+                    (" ".join(list(str(random.randint(108,136)))),
+                     random.choice(['',1,2,3,4,5,6,7,8,9,'0 2','0 2 5','0 5 0','7 5'])))
 
+# squak
+clearance.append("squawk %s %s %s %s" % (random.randint(1,6),random.randint(0,9),random.randint(0,9),random.randint(0,9)))
 
 # say clearance
-print clearance
+subprocess.call(["/usr/bin/say",". ".join(clearance)])
 
 
