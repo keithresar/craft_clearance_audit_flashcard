@@ -4,6 +4,7 @@ import re
 import random
 import subprocess
 
+rate = 250
 datafile = 'holds.nav'
 
 
@@ -32,9 +33,6 @@ with open(datafile) as fh:
 
 clearance = list()
 
-"""
-   Cessna 12345 cleared to Nashville as filed, fly runway heading, climb and maintain three thousand, expect seven thousand one zero minutes after departure, departure frequency one two four point six five, squawk two seven one three.
-"""
 
 # callsign
 clearance.append("Cessna 7 3 3 tango papa")
@@ -44,7 +42,7 @@ clearance.append("cleared to %s %s" % (random.choice(routes),
                                        random.choice([route_as_filed,route_via])()))
 
 # directional
-clearance.append("fly %s" % (random.choice([fly_rw_ref,fly_heading_ref,fly_heading_ref])()))
+clearance.append("flie %s" % (random.choice([fly_rw_ref,fly_heading_ref,fly_heading_ref])()))
 
 # altitude
 initial_altitude = random.randint(3,8)
@@ -62,6 +60,6 @@ clearance.append("departure frequency %s point %s" %
 clearance.append("squawk %s %s %s %s" % (random.randint(1,6),random.randint(0,9),random.randint(0,9),random.randint(0,9)))
 
 # say clearance
-subprocess.call(["/usr/bin/say",". ".join(clearance)])
+subprocess.call(["/usr/bin/say","-r",str(rate),". ".join(clearance)])
 
 
